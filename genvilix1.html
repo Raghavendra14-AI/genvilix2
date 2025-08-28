@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    Genvilix – Original single‑file site inspired by modern, neon/dark agency aesthetics.
+    Not a clone of threeatoms.com; all layout/copy are original.
+  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Genvilix — AI Consulting, Automation & Creative Studio</title>
+  <meta name="description" content="Genvilix helps brands grow with AI‑powered content, visuals & video, automation and productivity solutions, education & consulting, and strategic AI marketing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --brand:#ffd200;          /* Yellow */
+      --brand-600:#ffc400;      /* Darker Yellow */
+      --ink:#0a0a0a;            /* Black */
+      --white:#ffffff;
+      --muted:#cfcfcf;
+      --panel:#121212;
+      --panel-2:#0f0f0f;
+      --border:rgba(255,255,255,.08);
+      --radius-xl:22px; --radius-lg:16px; --radius-md:12px;
+      --shadow-xl:0 30px 80px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--ink);color:var(--white);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1180px;margin:0 auto;padding:0 20px}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#fff06a);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25),0 8px 20px rgba(255,210,0,.35)}
+    .brand b{letter-spacing:.4px}
+    .nav-links{display:flex;gap:26px}
+    .nav-cta{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;font-weight:700;transition:.25s}
+    .btn-primary{background:var(--brand);color:#151515;border:2px solid transparent}
+    .btn-primary:hover{transform:translateY(-2px);background:var(--brand-600)}
+    .btn-ghost{border:2px solid var(--border)}
+    .hamburger{display:none;flex-direction:column;gap:4px}
+    .hamburger span{width:26px;height:2.5px;background:var(--white);border-radius:3px}
+    @media(max-width:940px){.nav-links{display:none}.hamburger{display:flex}}
+    .mobile{display:none;position:absolute;inset:60px 0 auto 0;background:#0d0d0d;border-top:1px solid var(--border)}
+    .mobile.open{display:block}
+    .mobile a{display:block;padding:14px 20px;border-bottom:1px solid var(--border)}
+
+    /* HERO */
+    .hero{position:relative;overflow:hidden}
+    .hero-wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:34px;align-items:center;padding:84px 0}
+    h1{font-size:clamp(34px,5vw,56px);line-height:1.05;margin:10px 0 14px}
+    .eyebrow{color:var(--brand);font-weight:800;letter-spacing:.8px;text-transform:uppercase;font-size:12px}
+    .lead{color:#d8d8d8;max-width:720px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .kpi{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center}
+    .kpi .num{font-size:26px;font-weight:900;color:var(--brand)}
+    .glass{position:absolute;inset:-160px -60px auto -60px;height:380px;background:
+      radial-gradient(900px 340px at 70% -120px, rgba(255,210,0,.16), transparent 60%),
+      radial-gradient(600px 220px at 10% -80px, rgba(255,210,0,.25), transparent 58%)}
+    .blob{position:absolute;right:-120px;top:-120px;width:380px;height:380px;background:radial-gradient(circle at 30% 30%,rgba(255,210,0,.35),transparent 40%),radial-gradient(circle at 70% 70%,rgba(255,255,255,.18),transparent 40%);filter:blur(60px);opacity:.55}
+    @media(max-width:940px){.hero-wrap{grid-template-columns:1fr}}
+    .mock{height:380px;border-radius:18px;background:linear-gradient(135deg,#1a1a1a,#0f0f0f);border:1px dashed rgba(255,255,255,.16);display:grid;place-items:center;color:#bdbdbd}
+
+    /* TRUST */
+    .trust{padding:26px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#0e0e0e}
+    .trust-inner{display:flex;gap:22px;flex-wrap:wrap;align-items:center;justify-content:center}
+    .pill{padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:#111;opacity:.85}
+
+    /* SECTIONS */
+    section{padding:84px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:28px}
+    h2{font-size:clamp(26px,4vw,38px);margin:6px 0}
+    p.muted{color:var(--muted)}
+
+    /* SERVICES */
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .service{background:linear-gradient(180deg,#141414,#0e0e0e);border:1px solid var(--border);border-radius:18px;padding:22px;transition:.25s;position:relative;overflow:hidden}
+    .service:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+    .icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#ffe46e);display:inline-flex;align-items:center;justify-content:center;color:#111;font-weight:900}
+    .service h3{margin:10px 0 6px}
+    .service ul{padding-left:18px;color:#d9d9d9;line-height:1.9}
+    @media(max-width:940px){.services{grid-template-columns:1fr}}
+
+    /* SHOWCASE */
+    .showcase{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+    .panel{background:var(--panel-2);border:1px solid var(--border);border-radius:18px;padding:18px}
+    .panel .mock{height:340px}
+    @media(max-width:940px){.showcase{grid-template-columns:1fr}.panel .mock{height:220px}}
+
+    /* PROCESS */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .step{background:linear-gradient(180deg,#141414,#0d0d0d);border:1px solid var(--border);border-radius:18px;padding:22px}
+    .step .num{width:38px;height:38px;border-radius:999px;background:var(--brand);color:#151515;display:inline-flex;align-items:center;justify-content:center;font-weight:900;margin-bottom:10px}
+    @media(max-width:940px){.steps{grid-template-columns:1fr}}
+
+    /* CONTACT BAR */
+    .contactbar{background:var(--brand);color:#111;padding:50px 0;border-top:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08)}
+    .contactbar h2{color:#111;margin:0 0 8px}
+    .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+    .contact-card{background:#fff7bf;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:18px;color:#111}
+    .contact-form{background:#ffffff;border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:18px;color:#111}
+    .contact-form input,.contact-form textarea{width:100%;padding:14px 16px;margin:6px 0 12px;border-radius:12px;border:1px solid rgba(0,0,0,.2);background:#fff;color:#111}
+    .btn-dark{background:#111;color:#fff;border:2px solid #111}
+    .btn-dark:hover{transform:translateY(-2px)}
+    @media(max-width:940px){.contact-wrap{grid-template-columns:1fr}}
+
+    /* FAQ */
+    .faq{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    details{background:#101010;border:1px solid var(--border);border-radius:16px;padding:16px}
+    summary{cursor:pointer;font-weight:700}
+    @media(max-width:940px){.faq{grid-template-columns:1fr}}
+
+    /* FOOTER */
+    footer{padding:40px 0;border-top:1px solid var(--border);background:#0c0c0c;color:#d7d7d7}
+    .foot-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+    .foot-sub{display:flex;gap:10px}
+    .foot-sub input{flex:1;padding:14px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:#111;color:#eee}
+    .legal{opacity:.7;margin-top:10px;font-size:13px}
+    @media(max-width:940px){.foot-grid{grid-template-columns:1fr}}
+
+    /* ANIMATIONS */
+    [data-animate]{opacity:0;transform:translateY(18px);transition:all .6s ease}
+    [data-animate].in{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home">
+        <div class="logo" aria-hidden="true"></div>
+        <b>Genvilix</b>
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="#contact">Contact</a>
+        <a class="btn btn-primary" href="#contact">Get a Demo →</a>
+        <button class="hamburger" id="hamBtn" aria-label="menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mobile" id="mobileMenu">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="glass" aria-hidden="true"></div>
+    <div class="blob" aria-hidden="true"></div>
+    <div class="container hero-wrap">
+      <div>
+        <div class="eyebrow">Village → Global • AI‑first Agency</div>
+        <h1>Build, automate, and scale with <span style="color:var(--brand)">Genvilix</span></h1>
+        <p class="lead">We combine AI creativity and engineering to deliver content, visuals, automation, education, and strategic marketing—so your brand grows faster at lower cost.</p>
+        <div class="hero-cta">
+          <a href="#services" class="btn btn-primary">See our services</a>
+          <a href="#work" class="btn btn-ghost">View showcase</a>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="num">60%+</div><div class="lbl">Ops time saved</div></div>
+          <div class="kpi"><div class="num">3–8×</div><div class="lbl">Faster execution</div></div>
+          <div class="kpi"><div class="num">ROI↑</div><div class="lbl">Lower cost per task</div></div>
+        </div>
+      </div>
+      <div class="panel">
+       <img class="hero-img" src="./assets/hero.jpg" alt="Genvilix automation preview" loading="eager" />
+      </div>
+    </div>
+  </header>
+
+  <!-- TRUST BAR -->
+  <div class="trust">
+    <div class="container trust-inner">
+      <div class="pill">OpenAI • Claude • Zapier • Make</div>
+      <div class="pill">Notion • Sheets • Airtable • CRMs</div>
+      <div class="pill">Security‑first • Privacy‑aware</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services" class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">What we do</div>
+        <h2>Five services. One AI‑powered growth engine.</h2>
+        <p class="muted">Pick one to start or combine them for compounding results.</p>
+      </div>
+    </div>
+    <div class="services">
+      <!-- 1 -->
+      <div class="service" data-animate>
+        <div class="icon">1</div>
+        <h3>AI‑Powered Content Creation & Branding</h3>
+        <p class="muted">Authority‑building content that sounds like you, scaled by AI.</p>
+        <ul>
+          <li>Content strategy & tone guides</li>
+          <li>Blogs, LinkedIn posts, newsletters</li>
+          <li>Brand kits, logos, pitch decks</li>
+        </ul>
+      </div>
+      <!-- 2 -->
+      <div class="service" data-animate>
+        <div class="icon">2</div>
+        <h3>AI‑Powered Visuals & Video Strategy Editing</h3>
+        <p class="muted">Short‑form & explainers with AI‑assisted edits and design.</p>
+        <ul>
+          <li>Reels/Shorts scripting & editing</li>
+          <li>AI image & motion graphics</li>
+          <li>Captioning, hooks, and packaging</li>
+        </ul>
+      </div>
+      <!-- 3 -->
+      <div class="service" data-animate>
+        <div class="icon">3</div>
+        <h3>AI Automation & Productivity Solutions</h3>
+        <p class="muted">Replace repetitive work with workflows that run 24/7.</p>
+        <ul>
+          <li>Email triage → CRM → Slack alerts</li>
+          <li>Reporting: forms → dashboards → weekly mails</li>
+          <li>Support & FAQ bots with human handoff</li>
+        </ul>
+      </div>
+      <!-- 4 -->
+      <div class="service" data-animate>
+        <div class="icon">4</div>
+        <h3>AI Education & Training Programs + Consulting</h3>
+        <p class="muted">Teach your team to ship with AI and adopt safely.</p>
+        <ul>
+          <li>Team workshops & playbooks</li>
+          <li>Custom GPTs, RAG, and agent basics</li>
+          <li>Governance, privacy & best practices</li>
+        </ul>
+      </div>
+      <!-- 5 -->
+      <div class="service" data-animate>
+        <div class="icon">5</div>
+        <h3>Strategic AI Marketing</h3>
+        <p class="muted">Funnels and campaigns engineered with data + AI insights.</p>
+        <ul>
+          <li>Audience research & positioning</li>
+          <li>Offer design, landing pages, CRO</li>
+          <li>Analytics & iteration loops</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE / WORK -->
+  <section id="work" class="container">
+    <div class="section-head"><div><div class="eyebrow">Showcase</div><h2>What your stack looks like after Genvilix</h2></div></div>
+    <div class="showcase">
+      <div class="panel" data-animate>
+        <h3>Marketing Ops: Lead → CRM → Nurture</h3>
+        <p class="muted">Automated lead capture, enrichment, and multi‑channel follow‑ups.</p>
+        <div class="mock">Flow diagram / screenshot</div>
+      </div>
+      <div class="panel" data-animate>
+        <h3>Content Ops: Blog → Reels → Newsletter</h3>
+        <p class="muted">One source becomes multi‑format content with analytics.</p>
+        <div class="mock">Carousel / sample assets</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="container">
+    <div class="section-head"><div><div class="eyebrow">Method</div><h2>Simple 3‑step launch</h2></div></div>
+    <div class="steps">
+      <div class="step" data-animate>
+        <div class="num">1</div>
+        <h3>Audit & Blueprint</h3>
+        <p>We map your processes, choose high‑ROI automations, and design an execution plan.</p>
+      </div>
+      <div class="step" data-animate>
+        <div class="num">2</div>
+        <h3>Build & Integrate</h3>
+        <p>We deploy AI agents and workflows across your tools with governance & security.</p>
+      </div>
+      <div class="step" data-animate>
+        <div class="num">3</div>
+        <h3>Optimize & Scale</h3>
+        <p>We iterate with real data, then add new automations for compounding gains.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="container">
+    <div class="section-head"><div><div class="eyebrow">About</div><h2>Village‑to‑Global, purpose‑driven</h2></div></div>
+    <div class="panel" data-animate>
+      <p class="muted">Genvilix is an AI consulting and creative studio built to empower businesses from villages to global markets. We believe in practical AI — systems that save time, grow revenue, and look great doing it.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT BAR / CTA -->
+  <section id="contact" class="contactbar">
+    <div class="container">
+      <div class="section-head" style="margin-bottom:16px"><div><div class="eyebrow" style="color:#111">Contact</div><h2>Tell us your top 3 repetitive tasks</h2><p style="color:#2b2b2b;margin:6px 0 0">We’ll reply with a quick blueprint you can launch this week.</p></div></div>
+      <div class="contact-wrap">
+        <div class="contact-card">
+          <h3 style="margin:0 0 8px">Contact details</h3>
+          <p style="margin:6px 0">✉️ <b>Email:</b> hello@genvilix.in</p>
+          <p style="margin:6px 0">📞 <b>WhatsApp:</b> +91‑00000‑00000</p>
+          <p style="margin:6px 0">📍 <b>Location:</b> Telangana, India</p>
+          <p class="muted" style="color:#333;margin-top:10px">Prefer a call? Share your time window—we’ll schedule it.</p>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <label>Full Name
+            <input name="name" placeholder="Your name" required>
+          </label>
+          <label>Email
+            <input name="email" type="email" placeholder="you@company.com" required>
+          </label>
+          <label>Your message
+            <textarea name="message" placeholder="Tell us about your goals or repetitive tasks…" rows="5" required></textarea>
+          </label>
+          <button class="btn btn-dark" type="submit">Request Blueprint →</button>
+          <div id="formNote" style="font-size:13px;margin-top:8px;color:#333">This is a static demo. See JS below to wire it up.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="container">
+    <div class="section-head"><div><div class="eyebrow">FAQ</div><h2>Answers before we start</h2></div></div>
+    <div class="faq">
+      <details>
+        <summary>How fast can we launch?</summary>
+        <p>Most clients launch a first workflow in 5–10 days depending on tool access and complexity.</p>
+      </details>
+      <details>
+        <summary>Which tools do you support?</summary>
+        <p>Gmail, Outlook, Notion, Airtable, Google Sheets, HubSpot, Zoho, Slack, WhatsApp, Zapier, Make, and more.</p>
+      </details>
+      <details>
+        <summary>Is my data secure?</summary>
+        <p>We use principle of least privilege, audit logs, and optional on‑prem/region‑locked providers on request.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:8px">
+          <div class="logo" aria-hidden="true"></div>
+          <b>Genvilix</b>
+        </div>
+        <div class="legal">© <span id="year"></span> Genvilix. All rights reserved. Made with ⚡ from village → global.</div>
+      </div>
+      <div>
+        <div style="margin-bottom:10px">Get updates</div>
+        <div class="foot-sub">
+          <input placeholder="Enter your email" type="email" />
+          <button class="btn btn-primary" type="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamBtn = document.getElementById('hamBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamBtn?.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+
+    // Simple scroll‑in animation
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target);} })
+    },{threshold:.18});
+    document.querySelectorAll('[data-animate]').forEach(el=>observer.observe(el));
+
+    // Contact form (static demo). Replace with Formspree / Apps Script to make it real.
+    const contactForm = document.getElementById('contactForm');
+    const formNote = document.getElementById('formNote');
+    contactForm?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      formNote.textContent = "Thanks! We'll reply within 24 hours. (Connect this to Formspree/Apps Script to receive emails.)";
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
